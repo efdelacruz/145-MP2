@@ -1,0 +1,45 @@
+import java.awt.*;
+import java.awt.image.*;
+import java.io.IOException;
+
+public class Frog extends GameObject{
+	BufferedImage frog, frog_idle, frog_awake, frog_jump, frog_win, frog_lose;
+	Object lock;
+	int x = 50, y, move_delay = 0;
+	
+	public Frog(Object lock, int y, int move_delay){
+		this.move_delay = move_delay;
+		this.y = y;
+		this.lock = lock;
+		frog_idle = GameObject.getImage("frog_idle.png");
+		frog_awake = GameObject.getImage("frog_norm.png");
+		frog_jump = GameObject.getImage("frog_jump.png");
+		frog_win = GameObject.getImage("frog_win.png");
+		frog_lose  = GameObject.getImage("frog_lose.png");
+		frog = frog_idle;
+	}
+
+    public void paint(Graphics2D g) {
+		g.drawImage(frog, x, y, 50, 50, null);
+    }
+
+    public void run() {
+        while(true){
+			synchronized(lock){
+				for(x=-100;x<200;x++){
+					x=x+50;
+					if (frog == frog_idle) {
+						frog = frog_awake; x = x-50;
+					} else if (frog == frog_awake) {
+						frog = frog_jump;	
+					} else if (frog == frog_jump) {
+						frog = frog_awake;
+					} /*else if (monster == monsterright4) {
+						monster = monsterright1;
+					}*/
+					GameObject.delay(150);
+				}
+			}
+		}
+    }
+}
