@@ -52,17 +52,17 @@ public class MyClient extends JFrame implements KeyListener{
         //set frogs
         frog1 = new JLabel();
         Image frog_idle1 = new ImageIcon(getClass().getResource("frog_norm.png")).getImage();
-        frog1.setIcon(new ImageIcon(frog_idle1.getScaledInstance(90, 90, Image.SCALE_AREA_AVERAGING)));
-        frog1.setBounds(10,355,90,90);
+        frog1.setIcon(new ImageIcon(frog_idle1.getScaledInstance(80, 80, Image.SCALE_AREA_AVERAGING)));
+        frog1.setBounds(10,355,80,80);
         frog2 = new JLabel();
-        frog2.setIcon(new ImageIcon(frog_idle1.getScaledInstance(90, 90, Image.SCALE_AREA_AVERAGING)));
-        frog2.setBounds(10,410,90,90);
+        frog2.setIcon(new ImageIcon(frog_idle1.getScaledInstance(80, 80, Image.SCALE_AREA_AVERAGING)));
+        frog2.setBounds(10,410,80,80);
         frog3 = new JLabel();
-        frog3.setIcon(new ImageIcon(frog_idle1.getScaledInstance(90, 90, Image.SCALE_AREA_AVERAGING)));
-        frog3.setBounds(10,465,90,90);
+        frog3.setIcon(new ImageIcon(frog_idle1.getScaledInstance(80, 80, Image.SCALE_AREA_AVERAGING)));
+        frog3.setBounds(10,465,80,80);
         frog4 = new JLabel();
-        frog4.setIcon(new ImageIcon(frog_idle1.getScaledInstance(90, 90, Image.SCALE_AREA_AVERAGING)));
-        frog4.setBounds(10,520,90,90);
+        frog4.setIcon(new ImageIcon(frog_idle1.getScaledInstance(80, 80, Image.SCALE_AREA_AVERAGING)));
+        frog4.setBounds(10,520,80,80);
         //show frame
         c.add(ip);
         c.add(port);
@@ -84,10 +84,8 @@ public class MyClient extends JFrame implements KeyListener{
                 //System.out.println("Hello");
                 socket = new Socket(ipcont,portcont);
                 connect = new MyConnection(socket);
-                ClientMessageSender cms = new ClientMessageSender(connect);
                 ClientMessageListener cml = new ClientMessageListener(connect);
                 cml.start();
-                cms.start();
                 this.remove(ip);
                 this.remove(port);
                 this.setVisible(false);

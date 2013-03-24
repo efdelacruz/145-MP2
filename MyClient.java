@@ -84,10 +84,8 @@ public class MyClient extends JFrame implements KeyListener{
                 //System.out.println("Hello");
                 socket = new Socket(ipcont,portcont);
                 connect = new MyConnection(socket);
-                ClientMessageSender cms = new ClientMessageSender(connect);
-                ClientMessageListener cml = new ClientMessageListener(connect);
+                ClientMessageListener cml = new ClientMessageListener(connect, frog1);
                 cml.start();
-                cms.start();
                 this.remove(ip);
                 this.remove(port);
                 this.setVisible(false);
