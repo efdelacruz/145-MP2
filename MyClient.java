@@ -9,21 +9,17 @@ import javax.swing.event.*;
 import javax.imageio.*;
 
 public class MyClient extends JFrame implements KeyListener{
-    Vector<GameObject> gameobjects = new Vector<GameObject>();
     static JTextArea ip;
     static JTextArea port;
+    static JLabel frog1;
+    static JLabel frog2;
+    static JLabel frog3;
+    static JLabel frog4;
     String ipcont;
     int portcont;
     Socket socket;
-    MyConnection connect;
-    Canvas canvas;
-	BufferStrategy buffer;
-	GraphicsEnvironment ge;
-	GraphicsDevice gd;
-	GraphicsConfiguration gc; 
-	
-	BufferedImage bi;
-    Frog frog;
+    MyConnection connect; 
+    
 	public static void main(String args[]) {
 		try {
             MyClient c = new MyClient();
@@ -34,80 +30,52 @@ public class MyClient extends JFrame implements KeyListener{
 	}
     public void init_window(MyClient c){
     	//c.setLayout(null);
-        c.setSize(490,490);
+        c.setSize(800,600);
         c.setTitle("Client");
         c.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        c.setLocationRelativeTo(null);
         c.setResizable(false);
-        Container cont = new Container();
-        JLabel bg = new JLabel(new ImageIcon("swamp.jpg"));
-        bg.setBounds(0,0,489,450);
-        //cont.setBounds(0,0,800,600);
-        cont.add(bg);
-        ip = new JTextArea("127.0.0.1");
-        port = new JTextArea("8888");
+        JLabel bg = new JLabel();
+        Image framebg = new ImageIcon(getClass().getResource("swamp.jpg")).getImage();
+        bg.setIcon(new ImageIcon(framebg.getScaledInstance(800, 600, Image.SCALE_AREA_AVERAGING)));
+        bg.setBounds(0,0,800,600);
+        ip = new JTextArea();
+        port = new JTextArea();
         //first textarea: ip
         ip.setSize(200,25);
         ip.setEditable(true);
-        ip.setLocation(150, 125);
+        ip.setLocation(300, 125);
         //second textarea: port
         port.setSize(200,25);
         port.setEditable(true);
-        port.setLocation(150,165);
+        port.setLocation(300,165);
+        //set frogs
+        frog1 = new JLabel();
+        Image frog_idle1 = new ImageIcon(getClass().getResource("frog_norm.png")).getImage();
+        frog1.setIcon(new ImageIcon(frog_idle1.getScaledInstance(80, 80, Image.SCALE_AREA_AVERAGING)));
+        frog1.setBounds(10,355,80,80);
+        frog2 = new JLabel();
+        frog2.setIcon(new ImageIcon(frog_idle1.getScaledInstance(80, 80, Image.SCALE_AREA_AVERAGING)));
+        frog2.setBounds(10,410,80,80);
+        frog3 = new JLabel();
+        frog3.setIcon(new ImageIcon(frog_idle1.getScaledInstance(80, 80, Image.SCALE_AREA_AVERAGING)));
+        frog3.setBounds(10,465,80,80);
+        frog4 = new JLabel();
+        frog4.setIcon(new ImageIcon(frog_idle1.getScaledInstance(80, 80, Image.SCALE_AREA_AVERAGING)));
+        frog4.setBounds(10,520,80,80);
         //show frame
-        Graphics2D g;
-        Object froglock = new Object();
-        frog = new Frog(froglock, 350, 500);
-        c.add(frog);
         c.add(ip);
         c.add(port);
-        c.add(cont);
+        c.add(frog1);
+        c.add(frog2);
+        c.add(frog3);
+        c.add(frog4);
+        c.add(bg);
         port.addKeyListener(this);
-        //c.pack();
         c.setVisible(true);
-        // getting the graphics configuration
-		ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		gd = ge.getDefaultScreenDevice();
-		gc = gd.getDefaultConfiguration();
     }
     
-    public void draw() {
-		@SuppressWarnings("unused")
-		Random rand = new Random();
-		Graphics graphics = null;
-		Graphics2D g2d = null;
-		Color background = Color.BLACK;
-				
-		while(true) {
-			try {				
-				// clear back buffer
-				g2d = bi.createGraphics();
-				g2d.setColor(background);
-				g2d.fillRect(0,0,640,675);
-				
-				// draw stuff
-				for (GameObject go : gameobjects) {		
-					go.paint(g2d);
-				}
-				
-				// placing the back buffer in front
-				graphics = buffer.getDrawGraphics();
-				graphics.drawImage(bi,0,0,null);
-				if (!buffer.contentsLost()) {
-					buffer.show();
-				}				
-				Thread.yield();			
-			} finally {
-				if (graphics != null) {
-					graphics.dispose();
-				}
-				if (g2d != null) {
-					g2d.dispose();
-				}
-			
-			}
-		}
-	}
-    
+
     public void keyPressed(KeyEvent e){ 
         if(e.getKeyCode()==KeyEvent.VK_ENTER){
             try{
@@ -125,18 +93,11 @@ public class MyClient extends JFrame implements KeyListener{
                 this.setVisible(false);
                 this.setLocationRelativeTo(null);
                 this.setVisible(true);
-                this.draw();
-                //Object froglock = new Object();
-                //this.add(new Frog(froglock, 425, 500));
            } catch (Exception ex){
 			    ex.printStackTrace();
 		   }
         }
 	}
-	
-    public void add(GameObject go) {
-        gameobjects.add(go);
-    }
     
   	public void keyTyped(KeyEvent e){ 
             		

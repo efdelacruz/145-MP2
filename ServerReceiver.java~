@@ -15,6 +15,7 @@ public class ServerReceiver extends Thread{
 			        System.out.println("Server: Waiting for connections...");
 			        Socket socket = ssocket.accept();
                     MyConnection connect = new MyConnection(socket);
+                    
                     connection_vector.add(connect);
 			        System.out.println("Server: " + socket.getInetAddress() + 
 				        " connected!");
