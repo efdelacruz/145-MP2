@@ -5,24 +5,36 @@ import java.util.*;
 
 public class ClientMessageListener extends Thread{
     MyConnection c;
-    JLabel frog1;
-    public ClientMessageListener(MyConnection c, JLabel frog1){
+    JLabel frog1, frog2, frog3, frog4;
+    public ClientMessageListener(MyConnection c, JLabel frog1, JLabel frog2, JLabel frog3, JLabel frog4){
         this.c = c;
         this.frog1=frog1;
+        this.frog2=frog2;
+        this.frog3=frog3;
+        this.frog4=frog4;
     }
 
     public void run(){
         String msg;
         try{
+            Image frog_idle1 = new ImageIcon(getClass().getResource("frog_idle.png")).getImage();
+            Image frog_idle2 = new ImageIcon(getClass().getResource("frog_norm.png")).getImage();
             while(true){
                 //msg = c.getMessage();
-                Image frog_idle1 = new ImageIcon(getClass().getResource("frog_idle.png")).getImage();
-                Image frog_idle2 = new ImageIcon(getClass().getResource("frog_norm.png")).getImage();
-                Thread.sleep(100);
-                frog1.setIcon(new ImageIcon(frog_idle1.getScaledInstance(80, 80, Image.SCALE_AREA_AVERAGING)));
-                Thread.sleep(100);
-                frog1.setIcon(new ImageIcon(frog_idle2.getScaledInstance(80, 80, Image.SCALE_AREA_AVERAGING)));
-            }         
+                //System.out.println(msg);
+                //if(msg == "GAME START!") break;
+                Thread.sleep(500);
+                frog1.setIcon(new ImageIcon(frog_idle1.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                frog2.setIcon(new ImageIcon(frog_idle1.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                frog3.setIcon(new ImageIcon(frog_idle1.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                frog4.setIcon(new ImageIcon(frog_idle1.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                Thread.sleep(500);
+                frog1.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+                frog2.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+                frog3.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+                frog4.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+            }
+            System.out.println("Random number: " + c.getMessage());         
         }catch(Exception e){
             e.printStackTrace();
         }

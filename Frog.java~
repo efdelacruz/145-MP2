@@ -5,7 +5,7 @@ import java.io.IOException;
 public class Frog extends GameObject{
 	BufferedImage frog, frog_idle, frog_awake, frog_jump, frog_win, frog_lose;
 	Object lock;
-	int x = 50, y, move_delay = 0;
+	int x = 150, y, move_delay = 0;
 	
 	public Frog(Object lock, int y, int move_delay){
 		this.move_delay = move_delay;
@@ -34,9 +34,7 @@ public class Frog extends GameObject{
 						frog = frog_jump;	
 					} else if (frog == frog_jump) {
 						frog = frog_awake;
-					} /*else if (monster == monsterright4) {
-						monster = monsterright1;
-					}*/
+					}
 					GameObject.delay(150);
 				}
 			}
