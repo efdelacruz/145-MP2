@@ -9,7 +9,7 @@ public class ServerReceiver extends Thread{
     public ServerReceiver(ServerSocket ssocket){
         this.ssocket = ssocket;
     }
-     public void announce(String msg){ System.out.println("ANNOUNCE");
+     public void announce(String msg){
         for(int i=0; i<connection_vector.size(); i++){
             MyConnection mc = connection_vector.get(i);
             try{
@@ -24,7 +24,7 @@ public class ServerReceiver extends Thread{
 		    this.announce("GAME START!");
 		    rand_winner = 1 + (int)(Math.random() * 4);
 		    String winner = Integer.toString(rand_winner);
-		    this.announce(winner); System.out.println("Frog winner: " + winner);
+		    this.announce(winner); //System.out.println("Frog winner: " + winner);
 	}
 
     public void run(){

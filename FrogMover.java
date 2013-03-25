@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.util.*;
 
 public class FrogMover extends Thread{
-    JLabel frog1, frog2, frog3, frog4;
+    JLabel frog1, frog2, frog3, frog4, win;
     int jump = 0, xa, xb, xc, xd, ya, yb, yc, yd;
     String winner;
     public FrogMover(JLabel frog1, JLabel frog2, JLabel frog3, JLabel frog4, int xa, int xb, int xc, int xd, int ya, int yb, int yc, int yd){
@@ -22,6 +22,10 @@ public class FrogMover extends Thread{
 			Image frog_jump = new ImageIcon(getClass().getResource("frog_jump.png")).getImage();
 			Image frog_win = new ImageIcon(getClass().getResource("frog_win.png")).getImage();
 			Image frog_lose  = new ImageIcon(getClass().getResource("frog_lose.png")).getImage();
+			Image Awin = new ImageIcon(getClass().getResource("AWin.png")).getImage();
+			Image Bwin = new ImageIcon(getClass().getResource("BWin.png")).getImage();
+			Image Cwin = new ImageIcon(getClass().getResource("CWin.png")).getImage();
+			Image Dwin = new ImageIcon(getClass().getResource("DWin.png")).getImage();
             while(true){
             if(jump == 0){
                 Thread.sleep(500);
@@ -37,8 +41,15 @@ public class FrogMover extends Thread{
             }else if(jump==1){
             	Thread.sleep(500);
             	if(winner.startsWith("1")){
+            		if(xa >= 600){
+            			frog1.setIcon(new ImageIcon(frog_win.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog2.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog3.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog4.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+            			jump = 2;
+            		}else{
             		//jump
-            		xa = xa+40; xb = xb+30; xc = xc+20; xd = xd+10;
+            		xa = xa+40; xb = xb+20; xc = xc+10; xd = xd+30;
             		ya = ya-30; yb=yb-30; yc=yc-30; yd=yd-30;
             		frog1.setIcon(new ImageIcon(frog_jump.getScaledInstance(90, 72, Image.SCALE_AREA_AVERAGING)));
             		frog1.setBounds(xa, ya, 90, 72);
@@ -50,7 +61,7 @@ public class FrogMover extends Thread{
             		frog4.setBounds(xd, yd, 90, 72);
             		//land
             		Thread.sleep(500);
-            		xa = xa+20; xb = xb+15; xc = xc+10; xd = xd+5;
+            		xa = xa+20; xb = xb+10; xc = xc+5; xd = xd+15;
             		ya = ya+30; yb=yb+30; yc=yc+30; yd=yd+30;
             		frog1.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
             		frog1.setBounds(xa, ya, 72, 72);
@@ -60,9 +71,17 @@ public class FrogMover extends Thread{
             		frog3.setBounds(xc, yc, 72, 72);
             		frog4.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
             		frog4.setBounds(xd, yd, 72, 72);
+            		}
             	}else if(winner.startsWith("2")){
+            		if(xb >= 600){
+            			frog1.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog2.setIcon(new ImageIcon(frog_win.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog3.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog4.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+            			jump = 2;
+            		}else{
             		//jump
-            		xa = xa+10; xb = xb+40; xc = xc+30; xd = xd+20;
+            		xa = xa+30; xb = xb+40; xc = xc+10; xd = xd+20;
             		ya = ya-30; yb=yb-30; yc=yc-30; yd=yd-30;
             		frog1.setIcon(new ImageIcon(frog_jump.getScaledInstance(90, 72, Image.SCALE_AREA_AVERAGING)));
             		frog1.setBounds(xa, ya, 90, 72);
@@ -74,7 +93,7 @@ public class FrogMover extends Thread{
             		frog4.setBounds(xd, yd, 90, 72);
             		//land
             		Thread.sleep(500);
-            		xa = xa+5; xb = xb+20; xc = xc+15; xd = xd+10;
+            		xa = xa+15; xb = xb+20; xc = xc+5; xd = xd+10;
             		ya = ya+30; yb=yb+30; yc=yc+30; yd=yd+30;
             		frog1.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
             		frog1.setBounds(xa, ya, 72, 72);
@@ -84,9 +103,17 @@ public class FrogMover extends Thread{
             		frog3.setBounds(xc, yc, 72, 72);
             		frog4.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
             		frog4.setBounds(xd, yd, 72, 72);
+            		}
             	}else if(winner.startsWith("3")){
+            		if(xc >= 600){
+            			frog1.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog2.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog3.setIcon(new ImageIcon(frog_win.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog4.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+            			jump = 2;
+            		}else{
             		//jump
-            		xa = xa+20; xb = xb+10; xc = xc+40; xd = xd+30;
+            		xa = xa+30; xb = xb+20; xc = xc+40; xd = xd+10;
             		ya = ya-30; yb=yb-30; yc=yc-30; yd=yd-30;
             		frog1.setIcon(new ImageIcon(frog_jump.getScaledInstance(90, 72, Image.SCALE_AREA_AVERAGING)));
             		frog1.setBounds(xa, ya, 90, 72);
@@ -98,7 +125,7 @@ public class FrogMover extends Thread{
             		frog4.setBounds(xd, yd, 90, 72);
             		//land
             		Thread.sleep(500);
-            		xa = xa+10; xb = xb+5; xc = xc+20; xd = xd+15;
+            		xa = xa+15; xb = xb+10; xc = xc+20; xd = xd+5;
             		ya = ya+30; yb=yb+30; yc=yc+30; yd=yd+30;
             		frog1.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
             		frog1.setBounds(xa, ya, 72, 72);
@@ -108,7 +135,15 @@ public class FrogMover extends Thread{
             		frog3.setBounds(xc, yc, 72, 72);
             		frog4.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
             		frog4.setBounds(xd, yd, 72, 72);
+            		}
             	}else if(winner.startsWith("4")){
+            		if(xd >= 600){
+            			frog1.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog2.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog3.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog4.setIcon(new ImageIcon(frog_win.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+            			jump = 2;
+            		}else{
             		//jump
             		xa = xa+30; xb = xb+20; xc = xc+10; xd = xd+40;
             		ya = ya-30; yb=yb-30; yc=yc-30; yd=yd-30;
@@ -131,10 +166,66 @@ public class FrogMover extends Thread{
             		frog3.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
             		frog3.setBounds(xc, yc, 72, 72);
             		frog4.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
-            		frog4.setBounds(xd, yd, 72, 72);  		
+            		frog4.setBounds(xd, yd, 72, 72);
+            		}  		
             	}
+            }else if(jump == 2){
+            	Thread.sleep(500);
+            	if(winner.startsWith("1")){
+            		frog1.setIcon(new ImageIcon(frog_win.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog2.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog3.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog4.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                Thread.sleep(500);
+                frog1.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+                frog2.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+                frog3.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+                frog4.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+				}else if(winner.startsWith("2")){
+            		frog1.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog2.setIcon(new ImageIcon(frog_win.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog3.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog4.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                Thread.sleep(500);
+                frog1.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+                frog2.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+                frog3.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+                frog4.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+				}else if(winner.startsWith("3")){
+            		frog1.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog2.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog3.setIcon(new ImageIcon(frog_win.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog4.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                Thread.sleep(500);
+                frog1.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+                frog2.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+                frog3.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+                frog4.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+				}else if(winner.startsWith("4")){
+            		frog1.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog2.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog3.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                	frog4.setIcon(new ImageIcon(frog_win.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
+                Thread.sleep(500);
+                frog1.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+                frog2.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+                frog3.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+                frog4.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
+				}
             }
-            }
+            }/*
+            while(true){
+            	if(winner.startsWith("1")){
+					win.setIcon(new ImageIcon(Awin.getScaledInstance( 285, 85, Image.SCALE_AREA_AVERAGING)));
+				}else if(winner.startsWith("2")){
+					win.setIcon(new ImageIcon(Bwin.getScaledInstance( 285, 85, Image.SCALE_AREA_AVERAGING)));
+				}else if(winner.startsWith("3")){
+					win.setIcon(new ImageIcon(Cwin.getScaledInstance( 285, 85, Image.SCALE_AREA_AVERAGING)));
+				}else if(winner.startsWith("4")){
+					win.setIcon(new ImageIcon(Dwin.getScaledInstance( 285, 85, Image.SCALE_AREA_AVERAGING)));
+				}
+				win.setBounds(300, 145, 285, 85);
+            }*/
         }catch(Exception e){
             e.printStackTrace();
         }  
