@@ -5,15 +5,35 @@ import java.util.*;
 
 public class FrogMover extends Thread{
     JLabel frog1, frog2, frog3, frog4, win;
-    int jump = 0, xa, xb, xc, xd, ya, yb, yc, yd;
-    String winner;
-    public FrogMover(JLabel frog1, JLabel frog2, JLabel frog3, JLabel frog4, int xa, int xb, int xc, int xd, int ya, int yb, int yc, int yd){
+    int jump = 0, xa, xb, xc, xd, ya, yb, yc, yd, bet_total, ctr = 1;
+    String winner, bet_on, bet_amt;
+    public FrogMover(JLabel frog1, JLabel frog2, JLabel frog3, JLabel frog4, int xa, int xb, int xc, int xd, int ya, int yb, int yc, int yd, String bet_on, String bet_amt, JLabel win){
         this.frog1=frog1; this.xa = xa; this.ya = ya;
         this.frog2=frog2; this.xb = xb; this.yb = yb;
         this.frog3=frog3; this.xc = xc; this.yc = yc;
         this.frog4=frog4; this.xd = xd; this.yd = yd;
+        this.bet_on = bet_on; this.bet_amt = bet_amt; this.win = win;
     }
-
+	
+	public void check(){
+	if(ctr == 1){
+		if(winner.startsWith("1") && (bet_on.startsWith("A") || bet_on.startsWith("a")) ){
+			JOptionPane.showMessageDialog(null, "You win " + bet_total + " for betting on FROG A!");
+		}else if(winner.startsWith("2") && (bet_on.startsWith("B") || bet_on.startsWith("b")) ){
+			JOptionPane.showMessageDialog(null, "You win " + bet_total + " for betting on FROG B!");
+		}else if(winner.startsWith("3") && (bet_on.startsWith("C") || bet_on.startsWith("c")) ){
+			JOptionPane.showMessageDialog(null, "You win " + bet_total + " for betting on FROG C!");
+		}else if(winner.startsWith("4") && (bet_on.startsWith("D") || bet_on.startsWith("d")) ){
+			JOptionPane.showMessageDialog(null, "You win " + bet_total + " for betting on FROG D!");
+		}else{
+			JOptionPane.showMessageDialog(null, "You lose your bet for betting on FROG "+ bet_on +"! Better luck next time.");
+		}
+		ctr++;
+	}else{
+		return;
+	}
+	}
+	
     public void run(){
         String msg;
         try{
@@ -172,6 +192,7 @@ public class FrogMover extends Thread{
             }else if(jump == 2){
             	Thread.sleep(500);
             	if(winner.startsWith("1")){
+					win.setIcon(new ImageIcon(Awin.getScaledInstance( 285, 85, Image.SCALE_AREA_AVERAGING)));
             		frog1.setIcon(new ImageIcon(frog_win.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
                 	frog2.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
                 	frog3.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
@@ -182,6 +203,7 @@ public class FrogMover extends Thread{
                 frog3.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
                 frog4.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
 				}else if(winner.startsWith("2")){
+					win.setIcon(new ImageIcon(Bwin.getScaledInstance( 285, 85, Image.SCALE_AREA_AVERAGING)));
             		frog1.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
                 	frog2.setIcon(new ImageIcon(frog_win.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
                 	frog3.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
@@ -192,6 +214,7 @@ public class FrogMover extends Thread{
                 frog3.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
                 frog4.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
 				}else if(winner.startsWith("3")){
+					win.setIcon(new ImageIcon(Cwin.getScaledInstance( 285, 85, Image.SCALE_AREA_AVERAGING)));
             		frog1.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
                 	frog2.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
                 	frog3.setIcon(new ImageIcon(frog_win.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
@@ -202,6 +225,7 @@ public class FrogMover extends Thread{
                 frog3.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
                 frog4.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
 				}else if(winner.startsWith("4")){
+					win.setIcon(new ImageIcon(Dwin.getScaledInstance( 285, 85, Image.SCALE_AREA_AVERAGING)));
             		frog1.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
                 	frog2.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
                 	frog3.setIcon(new ImageIcon(frog_lose.getScaledInstance(72, 60, Image.SCALE_AREA_AVERAGING)));
@@ -212,20 +236,10 @@ public class FrogMover extends Thread{
                 frog3.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
                 frog4.setIcon(new ImageIcon(frog_idle2.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
 				}
-            }
-            }/*
-            while(true){
-            	if(winner.startsWith("1")){
-					win.setIcon(new ImageIcon(Awin.getScaledInstance( 285, 85, Image.SCALE_AREA_AVERAGING)));
-				}else if(winner.startsWith("2")){
-					win.setIcon(new ImageIcon(Bwin.getScaledInstance( 285, 85, Image.SCALE_AREA_AVERAGING)));
-				}else if(winner.startsWith("3")){
-					win.setIcon(new ImageIcon(Cwin.getScaledInstance( 285, 85, Image.SCALE_AREA_AVERAGING)));
-				}else if(winner.startsWith("4")){
-					win.setIcon(new ImageIcon(Dwin.getScaledInstance( 285, 85, Image.SCALE_AREA_AVERAGING)));
-				}
 				win.setBounds(300, 145, 285, 85);
-            }*/
+				check();
+            }
+            }
         }catch(Exception e){
             e.printStackTrace();
         }  

@@ -5,11 +5,11 @@ public class ServerReceiver extends Thread{
     ServerSocket ssocket;
     Vector<MyConnection> connection_vector = new Vector<MyConnection>();
     int total = 0, rand_winner = 0;
-    String winnner;
+    String winnner, bets[2];
     public ServerReceiver(ServerSocket ssocket){
         this.ssocket = ssocket;
     }
-     public void announce(String msg){ System.out.println("ANNOUNCE");
+     public void announce(String msg){
         for(int i=0; i<connection_vector.size(); i++){
             MyConnection mc = connection_vector.get(i);
             try{
@@ -24,7 +24,9 @@ public class ServerReceiver extends Thread{
 		    this.announce("GAME START!");
 		    rand_winner = 1 + (int)(Math.random() * 4);
 		    String winner = Integer.toString(rand_winner);
-		    this.announce(winner); System.out.println("Frog winner: " + winner);
+		    this.announce(winner); //System.out.println("Frog winner: " + winner);
+		    this.announce(bets[0]);
+		    this.announce(bets[1]);
 	}
 
     public void run(){
@@ -36,7 +38,8 @@ public class ServerReceiver extends Thread{
                     connection_vector.add(connect);
 			        System.out.println("Server: " + socket.getInetAddress() + 
 				        " connected!");
-				    System.out.println(connection_vector.toString());
+				    //System.out.println(connection_vector.toString());
+				    bets[total] = connect.getMessage();
 				    total = total + 1;
 				    if(total == 2) startGame();
 		    }

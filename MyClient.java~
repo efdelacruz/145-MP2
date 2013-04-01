@@ -9,12 +9,12 @@ import javax.swing.event.*;
 import javax.imageio.*;
 
 public class MyClient extends JFrame implements KeyListener{
-    static JTextArea ip;
+    static JTextArea ip, bet_amt, bet_on;
     static JTextArea port;
     static JLabel frog1, A;
     static JLabel frog2, B;
     static JLabel frog3, C;
-    static JLabel frog4, D;
+    static JLabel frog4, D, win;
     String ipcont;
     int portcont, xa, xb, xc, xd, ya, yb, yc, yd;
     Socket socket;
@@ -39,19 +39,27 @@ public class MyClient extends JFrame implements KeyListener{
         Image framebg = new ImageIcon(getClass().getResource("swamp.jpg")).getImage();
         bg.setIcon(new ImageIcon(framebg.getScaledInstance(800, 600, Image.SCALE_AREA_AVERAGING)));
         bg.setBounds(0,0,800,600);
+        bet_on = new JTextArea();
+        bet_amt = new JTextArea();
         ip = new JTextArea();
         port = new JTextArea();
+        bet_on.setSize(50, 25);
+        bet_on.setEditable(true);
+        bet_on.setLocation(375, 65);
+        bet_amt.setSize(150, 25);
+        bet_amt.setEditable(true);
+        bet_amt.setLocation(325, 105);
         //first textarea: ip
         ip.setSize(200,25);
         ip.setEditable(true);
-        ip.setLocation(300, 125);
+        ip.setLocation(300, 145);
         //second textarea: port
         port.setSize(200,25);
         port.setEditable(true);
-        port.setLocation(300,165);
+        port.setLocation(300,185);
         //set frogs
-        xa=50, xb=50, xc=50, xd=50;
-        ya=363, yb=410, yc=455, yd=498;
+        xa=50; xb=50; xc=50; xd=50;
+        ya=363; yb=410; yc=455; yd=498;
         frog1 = new JLabel();
         Image frog_idle1 = new ImageIcon(getClass().getResource("frog_norm.png")).getImage();
         frog1.setIcon(new ImageIcon(frog_idle1.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
@@ -66,6 +74,7 @@ public class MyClient extends JFrame implements KeyListener{
         frog4.setIcon(new ImageIcon(frog_idle1.getScaledInstance(72, 72, Image.SCALE_AREA_AVERAGING)));
         frog4.setBounds(xd,yd,72, 72);
         //set letters ABCD
+        win = new JLabel();
         A = new JLabel();
         B = new JLabel();
         C = new JLabel();
@@ -83,6 +92,7 @@ public class MyClient extends JFrame implements KeyListener{
         D.setIcon(new ImageIcon(imgD.getScaledInstance(60, 60, Image.SCALE_AREA_AVERAGING)));
         D.setBounds(5,515,60, 60);
         //show frame
+        c.add(bet); c.add(win);
         c.add(ip);
         c.add(port);
         c.add(frog1); c.add(A);
@@ -103,10 +113,13 @@ public class MyClient extends JFrame implements KeyListener{
                 //System.out.println("Hello");
                 socket = new Socket(ipcont,portcont);
                 connect = new MyConnection(socket);
-                FrogMover fm = new FrogMover(frog1,frog2,frog3,frog4, xa, xb, xc, xd, ya, yb, yc, yd);
+                connect.sendMessage(bet_amt.getText());
+                FrogMover fm = new FrogMover(frog1,frog2,frog3,frog4, xa, xb, xc, xd, ya, yb, yc, yd, bet_on.getText(), bet_amt.getText(), win);
                 fm.start();
                 ClientListener cl = new ClientListener(fm, connect);
                 cl.start();
+                bet_on.setEditable(false);
+                bet_amt.setEditable(false);
                 this.remove(ip);
                 this.remove(port);
                 this.setVisible(false);
